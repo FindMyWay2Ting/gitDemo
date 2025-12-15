@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>简单页面</title>
+    <style>
+      :root { color-scheme: light dark }
+      * { box-sizing: border-box }
+      html, body { height: 100% }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", system-ui, sans-serif;
+        line-height: 1.6;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #f6f7fb 0%, #eef1f7 100%);
+        color: #222;
+      }
+      .card {
+        width: min(640px, 92vw);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        padding: 28px;
+        border: 1px solid #e9edf3;
+      }
+      h1 { font-size: 28px; margin: 0 0 8px }
+      p { margin: 0 0 18px; color: #4b5563 }
+      .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap }
+      .row + .row { margin-top: 14px }
+      .pill { background: #f3f4f6; border-radius: 999px; padding: 6px 10px; font-weight: 600 }
+      button {
+        appearance: none;
+        border: 1px solid #2563eb;
+        background: #2563eb;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      button:active { transform: translateY(1px) }
+      .count { color: #374151; font-weight: 600 }
+      footer { margin-top: 18px; font-size: 13px; color: #6b7280 }
+      @media (prefers-color-scheme: dark) {
+        body { background: linear-gradient(135deg, #0b0e13 0%, #121722 100%); color: #e5e7eb }
+        .card { background: #0f172a; border-color: #1f2937 }
+        p { color: #9ca3af }
+        .pill { background: #1f2937 }
+        .count { color: #cbd5e1 }
+        footer { color: #94a3b8 }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>你好，世界</h1>
+      <p>这是一个极简示例页面。</p>
+      <div class="row">
+        <span class="pill">当前时间</span>
+        <strong id="time">--:--:--</strong>
+      </div>
+      <div class="row">
+        <button id="btn">点我</button>
+        <span class="count" id="count">已点击 0 次</span>
+      </div>
+      <footer>在浏览器打开本文件即可查看效果</footer>
+    </main>
+    <script>
+      const timeEl = document.getElementById('time');
+      const btn = document.getElementById('btn');
+      const countEl = document.getElementById('count');
+      let clicks = 0;
+
+      function pad(n) { return String(n).padStart(2, '0') }
+      function renderTime() {
+        const d = new Date();
+        const s = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        timeEl.textContent = s;
+      }
+      renderTime();
+      setInterval(renderTime, 1000);
+
+      btn.addEventListener('click', () => {
+        clicks += 1;
+        countEl.textContent = `已点击 ${clicks} 次`;
+      });
+    </script>
+  </body>
+</html>
